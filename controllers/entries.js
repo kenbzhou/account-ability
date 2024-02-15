@@ -23,8 +23,6 @@ entryRouter.post('/', async (request, response) => {
 entryRouter.get('/:id', async (request, response) => {
   try {
     const currEntry = await Entry.findById(request.params.id)
-    console.log(request.params.id)
-    console.log(currEntry)
     if (currEntry) {
       response.json(currEntry)
     }
@@ -33,6 +31,16 @@ entryRouter.get('/:id', async (request, response) => {
     }
   }
   catch(exception) {response.status(404).send(exception)}
+})
+
+entryRouter.delete('/:id', async (request, response) => {
+  try {
+    await Entry.findByIdAndDelete(request.params.id)
+    response.status(204)
+  }
+  catch(exception) {
+    response.status(404).send(exception)
+  }
 })
 
 // Todo : input checking
