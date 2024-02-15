@@ -9,8 +9,8 @@ const entrySchema = new mongoose.Schema({
   sched_time_r:{type: String},
   description: {type: String},
   url:         {type: String},
-  elapsed:     {type: Boolean},
-  completed:   {type: Boolean},
+  elapsed:     {type: Boolean,required: true,default: false},
+  completed:   {type: Boolean,required: true,default: false},
 })
 
   // recurring:

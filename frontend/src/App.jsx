@@ -1,17 +1,37 @@
 import { useState, useEffect } from 'react'
+import { Card, Space, Divider, Button, Flex } from 'antd'
+import { DownloadOutlined } from '@ant-design/icons';
+
 import commitmentService from './services/commitments'
 import './App.css'
 
 const USER = 'kenbzhou'
 
-const Entry = ({entry}) => {
+const EntryCard = ({entry}) => {
+  const [isHovered, setIsHovered] = useState(false)
+  const handleMouseEnter = () => (setIsHovered(true))
+  const handleMouseLeave = () => (setIsHovered(false))
   return(
-    <li className='entry'>
-      {entry.title}
-      {entry.date}
-    </li>
+    <Card className='displayedEntry' 
+          title={entry.title}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          >
+      <p style={{color: isHovered ? "LightGrey" : "black"}}> {entry.date} </p>
+      {isHovered ? (<Flex gap='middle' className='buttonContainer'>
+        <Button type="primary" shape="round" icon={<DownloadOutlined/>} onClick={() => {console.log("Accomplish")}}></Button>
+        <Button type="primary" shape="round" icon={<DownloadOutlined/>} onClick={() => {console.log("Renounce")}}></Button>
+        <Button type="primary" shape="round" icon={<DownloadOutlined/>} onClick={() => {console.log("Defer")}}></Button>
+      </Flex>) : <div></div>}
+      <Flex justify="flex-end" align="flex-end" gap="small">
+        <Button type="dashed" shape="round" icon={<DownloadOutlined/>} onClick={() => {console.log("Accomplish")}}></Button>
+        <Button type="dashed" shape="round" icon={<DownloadOutlined/>} onClick={() => {console.log("Accomplish")}}></Button>
+      </Flex>
+    </Card>
   )
 }
+
+
 
 const App = () => {
   const [entries, changeEntries] = useState([])
@@ -28,13 +48,16 @@ const App = () => {
   [])
 
 
-
-  
-
-
   return (
     <div>
-      {entries.map(entry => <Entry entry={entry}/>)}
+      <Divider className='topBar'/> 
+      <Space direction = "vertical" size="middle" style={{display: 'flex'}}>
+        {entries.map(entry => {
+          return(
+          <EntryCard entry={entry}/>
+          )
+        })}
+      </Space>
     </div>
   )
 }
