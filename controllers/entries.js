@@ -1,11 +1,19 @@
 const entryRouter = require('express').Router()
 const Entry = require('../models/entry')
 
+// Get All
 entryRouter.get('/', async (request, response) => {
   const entries = await Entry.find({})
   response.json(entries)
 })
 
+entryRouter.get('/:user', async(request, response) => {
+  const entries = await Entry.find({"user": request.params.user})
+  console.log("Get user called")
+  response.json(entries)
+})
+
+// Create New Entry
 entryRouter.post('/', async (request, response) => {
   const entry = new Entry(request.body)
   try {
@@ -20,6 +28,7 @@ entryRouter.post('/', async (request, response) => {
   }
 })
 
+// Get Entry by ID
 entryRouter.get('/:id', async (request, response) => {
   try {
     const currEntry = await Entry.findById(request.params.id)
@@ -33,22 +42,26 @@ entryRouter.get('/:id', async (request, response) => {
   catch(exception) {response.status(404).send(exception)}
 })
 
+// Delete Entry by ID
 entryRouter.delete('/:id', async (request, response) => {
   try {
     await Entry.findByIdAndDelete(request.params.id)
-    response.status(204)
+    response.status(204).end()
   }
   catch(exception) {
+    console.log("exception", exception)
     response.status(404).send(exception)
   }
 })
 
+// Update Entry by ID
 // Todo : input checking
 entryRouter.put('/:id', async (request, response) => {
   const body = request.body
   const origEntry = await Entry.findById(request.params.id)
   const newEntry = {
     "title":        body.title        ? body.title : origEntry.title,
+    "user" :        body.user         ? body.user  : origEntry.user,
     "importance":   body.importance   ? body.importance : origEntry.importance,
     "date":         body.date         ? body.date : origEntry.date,
     "sched_time":   body.sched_time   ? body.sched_time : origEntry.sched_time,

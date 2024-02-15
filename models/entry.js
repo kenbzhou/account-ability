@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 
 const entrySchema = new mongoose.Schema({
   title:       {type: String, required: true},
+  user:        {type: String, required: true},
   importance:  {type: Number, required: true},
   date:        {type: String, required: true},
   sched_time:  {type: Number},
@@ -11,5 +12,9 @@ const entrySchema = new mongoose.Schema({
   elapsed:     {type: Boolean},
   completed:   {type: Boolean},
 })
+
+  // recurring:
+  // deadline:
+  //
 
 module.exports = mongoose.model('Entry', entrySchema)

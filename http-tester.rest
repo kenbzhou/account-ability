@@ -6,7 +6,8 @@ POST http://localhost:3003/api/entry
 Content-Type: application/json
 
 {
-    "title": "Enrollment",
+    "title": "Dummy",
+    "user": "kenbzhou",
     "importance": "2",
     "sched_time": 23,
     "description": "Need to enroll in CS130 and MGMT170",
@@ -14,12 +15,19 @@ Content-Type: application/json
 }
 
 ###
+DELETE http://localhost:3003/api/entry/65cdb991df87633f898ecd82
+
+###
 GET http://localhost:3003/api/entry/65cdb991df87633f898ecd82
 
 ###
-PUT http://localhost:3003/api/entry/65cdb991df87633f898ecd82 HTTP/1.1
+GET http://localhost:3003/api/entry/kenbzhou
+
+
+###
+PUT http://localhost:3003/api/entry/65cdbb4fb444df7694b86b3d HTTP/1.1
 Content-Type: application/json
 
 {
-    "importance": 5
+    "user": "kenbzhou"
 }
