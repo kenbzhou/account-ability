@@ -1,7 +1,6 @@
 
 body {
-  background-color: whitesmoke;
-  padding: 1%;
+  background-color: black;
 }
 
 .buttonContainer {
@@ -9,14 +8,15 @@ body {
   top:50%;
   left:50%;
   transform: translate(-50%, -50%);
-  padding-right: 40px;
   opacity: 1; /* Initially hide the buttons */
 }
 
+/*
 .topBar {
   width: 90%;
   margin: 0 auto;
 }
+*/
 
 .displayedEntry{
   font-family: "Lucida Console", "Courier New", monospace;
