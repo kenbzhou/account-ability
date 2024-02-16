@@ -1,6 +1,11 @@
 
 body {
-  background-color: black;
+  background-color: whitesmoke;
+  
+}
+
+.dailyPageBody {
+  font-family: 'Times New Roman', Times, serif;
 }
 
 .buttonContainer {
@@ -20,4 +25,24 @@ body {
 
 .displayedEntry{
   font-family: "Lucida Console", "Courier New", monospace;
+}
+ 
+/* width: '100%', minHeight: '20%', marginTop: '1%', background: 'White' */
+
+.commitmentCard {
+  position: relative;
+  width: 100%;
+  min-height: 20%;
+  margin-top: 1%;
+  background-color: white;
+}
+
+.commitmentCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1.5%; /* Adjust as needed */
+  height: 100%;
+  background-color: #ff0000; /* Your desired color */
 }
