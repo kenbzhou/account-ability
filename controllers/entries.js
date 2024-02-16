@@ -4,14 +4,21 @@ const Entry = require('../models/entry')
 // Get All
 entryRouter.get('/', async (request, response) => {
   const entries = await Entry.find({})
+  console.log(new Date().toISOString().slice(0, 10))
   response.json(entries)
 })
 
-entryRouter.get('/:user', async(request, response) => {
+entryRouter.get('/users/:user', async(request, response) => {
   const entries = await Entry.find({"user": request.params.user})
-  console.log("Get user called")
   response.json(entries)
 })
+
+entryRouter.get('/users/:user/:date', async(request, response) => {
+  console.log("Get user/date called")
+  const entries = await Entry.find({"user": request.params.user, "date": request.params.date})
+  response.json(entries)
+})
+
 
 // Create New Entry
 entryRouter.post('/', async (request, response) => {
@@ -30,6 +37,7 @@ entryRouter.post('/', async (request, response) => {
 
 // Get Entry by ID
 entryRouter.get('/:id', async (request, response) => {
+  console.log("get by ID called")
   try {
     const currEntry = await Entry.findById(request.params.id)
     if (currEntry) {

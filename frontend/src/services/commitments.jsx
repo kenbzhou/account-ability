@@ -9,8 +9,13 @@ const getAll = () => {
 const getAllUser = (user) => {
   //console.log(`getAllUser called with ${user} as input`)
   //console.log(`calling axios.get with ${baseURL}/${user} as input`)
-  const request = axios.get(`${baseURL}/${user}`)
+  const request = axios.get(`${baseURL}/users/${user}`)
   //console.log(request)
+  return request.then(response => response.data)
+}
+
+const getAllUserbyDate = (user, date) => {
+  const request = axios.get(`${baseURL}/users/${user}/${date}`)
   return request.then(response => response.data)
 }
 
@@ -29,4 +34,4 @@ const updateEntry = (id, updatedEntry) => {
   return request.then(response => response.data)
 }
 
-export default {getAll, getAllUser, deleteEntry, createEntry, updateEntry}
+export default {getAll, getAllUser, deleteEntry, createEntry, updateEntry, getAllUserbyDate}

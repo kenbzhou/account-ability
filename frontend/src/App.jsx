@@ -1,22 +1,13 @@
 import { useState, useEffect } from 'react'
-import { Card, Space, Divider, Button, Flex, Breadcrumb, Layout, Menu, theme, Table, Avatar, Calendar, Progress } from 'antd'
-import {
-  DesktopOutlined,
-  AntDesignOutlined,
-  HistoryOutlined,
-  CalendarOutlined,
-  UserOutlined,
-  ScheduleOutlined,
-  TableOutlined,
-  InsertRowAboveOutlined,
-} from '@ant-design/icons';
+import { Card, Space, Divider, Button, Flex, Breadcrumb, Layout} from 'antd'
 import { DownloadOutlined } from '@ant-design/icons';
-
 import commitmentService from './services/commitments'
+import MenuSidebar from './components/sidebar'
 import './App.css'
 
 const { Header, Content, Footer, Sider } = Layout
 const USER = 'kenbzhou'
+const TODAYS_DATE = (new Date().toISOString().slice(0, 10))
 
 const EntryCard = ({entry}) => {
   const [isHovered, setIsHovered] = useState(false)
@@ -41,21 +32,19 @@ const EntryCard = ({entry}) => {
     </Card>
   )
 }
-function getItem(label, key, icon, children) {
-  return {key, icon, children, label}
+
+
+
+
+
+const CommitmentCard = ({entry}) => {
+  console.log(entry)
+  return(
+    <Card className = 'commitmentCard' title = {entry.title}>
+      <p> {entry.description ? entry.description : null} </p>
+    </Card>
+  )
 }
-const sideBarItems = [
-  getItem('Profile', 'sub1', <UserOutlined />),
-  getItem('Calendar', 'sub2', <CalendarOutlined/>, [
-    getItem('Daily', 'sub3', <ScheduleOutlined/>),
-    getItem('Weekly', 'sub4', <InsertRowAboveOutlined/>),
-    getItem('Monthly', 'sub5', <TableOutlined/>)
-  ]),
-  getItem('History', 'sub6', <HistoryOutlined/>)
-
-
-
-]
 
 
 
@@ -65,7 +54,7 @@ const App = () => {
 
   useEffect(() => {
     commitmentService
-      .getAllUser(USER)
+      .getAllUserbyDate(USER, TODAYS_DATE)
       .then(userNotes => {
         changeEntries(userNotes)
         console.log(userNotes)
@@ -75,62 +64,37 @@ const App = () => {
   [])
 
 
-    /*
-
-
-    */
-
-
-
   return (
     <Layout className="dailyPageBody" style={{height: '100vh', margin: 0, padding: 0, color: 'black', }}>
-      <Sider theme="dark" collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} style={{background:"RoyalBlue"}}>
-        <Flex justify={'center'} align={'center'} style={{paddingTop: '1vw'}}>
-            <Avatar size={{ xs: 24, sm: 28, md: 32, lg: 54, xl: 60, xxl: 60}} icon={<AntDesignOutlined/>}/>
-          </Flex>
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={sideBarItems} style={{paddingTop:'1vw', background:"RoyalBlue"}}/>
-      </Sider>
-
+      <MenuSidebar collapsed={collapsed} setCollapsed={setCollapsed}/>
       <Layout collapsed={collapsed} style={{width: collapsed ? '95.5vw' : '88.5vw',}}>
         <Header style={{height:'5vh', padding: '.1vw', background: 'WhiteSmoke',}}> </Header>
         <Flex>
-          <Flex vertical={true} style={{marginLeft:'1.5vw', height: '85vh',  background: 'white', width: '60vw', background: 'WhiteSmoke'}}>
+          <Flex vertical={true} style={{marginLeft:'3vw', height: '90vh',  background: 'white', width: '60vw', background: 'WhiteSmoke'}}>
             <h1 style={{}}>
               Commitments
             </h1>
             <p style={{marginTop:'-2.5vh'}}>
               Feburary 16th, 2024
             </p>
-            <Flex vertical style={{background:'WhiteSmoke', minHeight: '97%', overflow: 'auto'}}>
-              <Card className="commitmentCard"> Hello </Card>
-              <Card style={{width: '100%', minHeight: '20%', marginTop: '1%'}}> Hello </Card>
-              <Card style={{width: '100%', minHeight: '20%', marginTop: '1%', background: 'White'}}> Hello </Card>
-              <Card style={{width: '100%', minHeight: '20%', marginTop: '1%', background: 'White'}}> Hello </Card>
-              <Card style={{width: '100%', minHeight: '20%', marginTop: '1%', background: 'White'}}> Hello </Card>
+            <Flex vertical style={{background:'WhiteSmoke', height: '100%', overflow: 'auto'}}>
+              {entries.map(entry => <CommitmentCard entry={entry}/>)}
             </Flex>
-            <Flex style={{minHeight: '3%', background:'Red'}}>
-              Hi
-            </Flex>
-
           </Flex>
 
-          <Flex vertical={true} style={{margin: '1vh', padding: '1%', height: '85vh',  background: 'white', width: '40vw', alignContent: 'center', background: 'Red'}}>
+          <Flex vertical={true} style={{marginLeft: '3vw', padding: '1%', height: '90vh',  background: 'white', width: '40vw', alignContent: 'center', background: 'Red'}}>
               <Card style={{margin:'0.5%', height:'15vw'}}>
                 <h3>
                   Progress Today
                 </h3>
-                
               </Card>
               <Card style={{margin:'0.5%', height:'30vw'}}>
                 <h2>
                   Accomplishments
                 </h2>
-                
               </Card>
               <Card style={{margin:'0.5%', height:'10vw', width:'10vw'}}>
-                
               </Card>
-
           </Flex>
         </Flex>
 
