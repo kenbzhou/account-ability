@@ -1,1 +1,5 @@
-# account-ability
+# Account-Ability
+
+Extremely WIP web application built on MongoDB, Express, React, + Node.JS to refamiliarize myself with frontend dev and familiarize myself with AntDesign.
+
+Accountability is to be a scheduler application that quantifies one's ability to uphold their commitments: e.g classes, meetings, social events, or planned activites like daily learning or homework schedule. Users are to answer a prompt that identifies their identity and priorities as an individual: e.g, full-time student at college trying to improve their attendance at class. When users create a 'commitment' on the scheduler, a LLM will consider the user's identity, analyze the new event, and assign a point value to the commitment. If the commitment is upheld, the users gains the points assigned to the event. Otherwise, these points are lost. The end goal is for the user to see how well they're able to uphold the commitments they undertake over a month, and to have a tangible measure via a points system that not only adds a small reward for diligence, but also allows them a definite metric to track their commitment over time.
